@@ -1,6 +1,6 @@
 <?php
 ## 数据库账号信息 ##
-// 本文件在Git版本管理中忽略更新
+// 注意本文件在Git版本管理中忽略更新
 
 $db_host = 'localhost'; //主机
 $db_username = 'root'; //账号
