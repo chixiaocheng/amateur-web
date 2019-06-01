@@ -3,4 +3,7 @@
 
 /* 数据库配置 */
 include_once "db.php"; //数据库账号信息
-$db = new mysqli($db_host, $db_username, $db_password);
+$db = new mysqli($db_host, $db_username, $db_password, $db_name);
+if ($db->connect_error) {
+    die('数据库连接错误！');
+}
