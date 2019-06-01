@@ -2,12 +2,22 @@
 ## 索引/全局入口 ##
 
 /* 判断终端类型 (存在优先级) */
+$client=null;
+$plugin=null;
+$path=null;
 if (isset($_GET['mobile'])) {
-    echo 'mobile';
+    $client= 'mobile';
 }else if (isset($_GET['desktop'])) {
-    echo 'desktop';
+    $client= 'desktop';
 }else if(isset($_GET['wechat'])){
-    echo "wechat";
-}else{
-    echo "wrong";
+    $client= "wechat";
 }
+if (isset($_GET['app'])) {
+    $path="/apps/{$_GET['app']}/template/{$client}/{$_GET['mod']}";
+}else if (isset($_GET['applet'])){
+    $path="/applets/{$_GET['applet']}/template/{$client}/{$_GET['mod']}";
+}else{
+    $path="/public/template/{$client}/{$_GET['mod']}";
+}
+
+echo $path;
