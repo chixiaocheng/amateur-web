@@ -1,7 +1,7 @@
 <?php
 ## 获取用户信息 ##
 
-$ikey = def_get('ikey');
+$ikey = get_def('ikey');
 $res = $db->query("SELECT uid FROM user WHERE ikey=$ikey");
 if ($res->num_rows) {
     $row=$res->fetch_assoc();
