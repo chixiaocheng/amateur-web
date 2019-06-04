@@ -1,9 +1,7 @@
 <?php
 ## 基本配置文件 ##
 
-/**
- ** 数据库配置 **
- */
+/** 数据库配置 **/
 require_once "db.php"; //数据库账号信息
 $db = new mysqli($db_host, $db_username, $db_password, $db_name);
 if ($db->connect_error) {
@@ -19,5 +17,19 @@ require_once "default.php";
 require_once "function.php";
 
 
+/**
+ ** 判断终端类型 (存在优先级) **
+ * $client 终端类型
+ */
+$client = $default_client; //默认终端
+if (isset($_GET['mobile'])) {
+    $client = 'mobile'; //移动版
+} else if (isset($_GET['desktop'])) {
+    $client = 'desktop'; //桌面版
+} else if (isset($_GET['wechat'])) {
+    $client = 'wechat'; //微信小程序版
+}
+
+
 /** 获取用户信息 **/
-require_once "get_user.php";
+require_once "ikey_check.php";

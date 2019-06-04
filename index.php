@@ -2,20 +2,6 @@
 ## 索引/全局入口 ##
 include_once "common/config.php";
 
-/**
- ** 判断终端类型 (存在优先级) **
- * $client 终端类型
- */
-if (isset($_GET['mobile'])) {
-    $client = 'mobile'; //移动版
-} else if (isset($_GET['desktop'])) {
-    $client = 'desktop'; //桌面版
-} else if (isset($_GET['wechat'])) {
-    $client = 'wechat'; //微信小程序版
-} else {
-    $client = $default_client; //默认终端
-}
-
 
 /**
  ** 获取访问路径并显示 **
