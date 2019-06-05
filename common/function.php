@@ -39,7 +39,7 @@ function template($type, $path) {
     global $client;
     $extension=($client == 'wechat') ? 'json' : 'htm';
     if ($type == 'public') {
-        return include_once "E:/PhpstormProjects/amateur-web/public/template/$client/$path.$extension";
+        return require_once "E:/PhpstormProjects/amateur-web/public/template/$client/$path.$extension";
     } elseif ($type == 'app') {
         return "";
     }
