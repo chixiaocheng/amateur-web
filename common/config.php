@@ -2,17 +2,22 @@
 ## 基本配置文件 ##
 
 //TODO
+class A{
+    function __construct() {
+        echo "aaaa";
+    }
+}
 class newClass
 {
-    function M($class_name, $unique = '') {
+    static function M($class_name, $unique = '') {
         static $class_list = [];
+        require_once "class/$class_name.php";
         if (!$class_list[$class_name . $unique]) {
             $class_list[$class_name . $unique] = new $class_name;
         }
         return $class_list[$class_name.$unique];
     }
 }
-
 
 /** 数据库配置 **/
 require_once "db.php"; //数据库账号信息
