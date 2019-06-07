@@ -107,22 +107,22 @@ if ($res->num_rows) {
 
 /*显示*/
 foreach ($data as $data_key => $data_value) {
-    $data_value['p_score']=round($data_value['p_score'], 1);
+    $data_value['p_score'] = round($data_value['p_score'], 1);
     echo "<u>{$data_key}【{$data_value['p_name']}】{$data_value['p_score']}分</u><br><b>推荐：";
     if (isset($data_value['hero_adv'])) {
-        $i=0;
+        $i = 0;
         foreach ($data_value['hero_adv'] as $adv_hero) {
-            $adv_hero['h_score']=round($adv_hero['h_score']);
-            echo ($i++)?'、':'';
+            $adv_hero['h_score'] = round($adv_hero['h_score']);
+            echo ($i++) ? '、' : '';
             echo "{$adv_hero['h_name']}{$adv_hero['h_score']}分 ({$adv_hero['h_num']}次)";
         }
     }
     echo "</b><br>禁用：";
     if (isset($data_value['hero_ban'])) {
-        $i=0;
+        $i = 0;
         foreach ($data_value['hero_ban'] as $ban_hero) {
-            $ban_hero['h_score']=round($ban_hero['h_score']);
-            echo ($i++)?'、':'';
+            $ban_hero['h_score'] = round($ban_hero['h_score']);
+            echo ($i++) ? '、' : '';
             echo "{$ban_hero['h_name']}{$ban_hero['h_score']}分 ({$ban_hero['h_num']}次)";
         }
     }
