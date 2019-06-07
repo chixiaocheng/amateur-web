@@ -105,8 +105,7 @@ if ($res->num_rows) {
 }
 
 
-/**
- * 显示*/
+/*显示*/
 foreach ($data as $data_key => $data_value) {
     $data_value['p_score']=round($data_value['p_score'], 1);
     echo "<u>{$data_key}【{$data_value['p_name']}】{$data_value['p_score']}分</u><br><b>推荐：";
