@@ -8,7 +8,7 @@ if ($db->connect_error) {
 }
 
 /** 新增数据 **/
-if ($_GET['act'] == 'add') {
+if (isset($_GET['act']) and $_GET['act'] == 'add') {
     $hero_name = $_GET['hero'];
     $position_name = $_GET['position'];
     $mark = $_GET['mark'];
@@ -78,7 +78,7 @@ if ($res->num_rows) {
     while ($row = $res->fetch_assoc()) {
         $data[$i]['p_name'] = $row['name'];
         $data[$i]['p_score'] = $row['score'];
-        $res_hero_adv = $db->query("SELECT id,name,score,max_score,min_score FROM moba_hero_analyzer_hero WHERE position={$row['id']} AND score>=0.95*{$row['score']} ORDER BY score DESC LIMIT 3");
+        $res_hero_adv = $db->query("SELECT id,name,score,max_score,min_score FROM moba_hero_analyzer_hero WHERE position={$row['id']} AND score>=0.95*{$row['score']} ORDER BY score DESC");
         if ($res_hero_adv->num_rows) {
             $j = 1;
             while ($row_hero_adv = $res_hero_adv->fetch_assoc()) {
@@ -89,7 +89,7 @@ if ($res->num_rows) {
                 $j++;
             }
         }
-        $res_hero_ban = $db->query("SELECT id,name,score,max_score,min_score FROM moba_hero_analyzer_hero WHERE position={$row['id']} AND score<0.80*{$row['score']} ORDER BY score");
+        $res_hero_ban = $db->query("SELECT id,name,score,max_score,min_score FROM moba_hero_analyzer_hero WHERE position={$row['id']} AND score<0.95*{$row['score']} ORDER BY score");
         if ($res_hero_ban->num_rows) {
             $j = 1;
             while ($row_hero_ban = $res_hero_ban->fetch_assoc()) {
@@ -106,20 +106,23 @@ if ($res->num_rows) {
 
 
 foreach ($data as $data_key => $data_value) {
-    echo "{$data_key}【{$data_value['p_name']}】<br>推荐：";
+    $data_value['p_score']=round($data_value['p_score'], 1);
+    echo "<u>{$data_key}【{$data_value['p_name']}】{$data_value['p_score']}分</u><br><b>推荐：";
     if (isset($data_value['hero_adv'])) {
         $i=0;
         foreach ($data_value['hero_adv'] as $adv_hero) {
+            $adv_hero['h_score']=round($adv_hero['h_score']);
             echo ($i++)?'、':'';
-            echo "{$adv_hero['h_name']}";
+            echo "{$adv_hero['h_name']}{$adv_hero['h_score']}分 ({$adv_hero['h_num']}次)";
         }
     }
-    echo "<br>禁用：";
+    echo "</b><br>禁用：";
     if (isset($data_value['hero_ban'])) {
         $i=0;
         foreach ($data_value['hero_ban'] as $ban_hero) {
+            $ban_hero['h_score']=round($ban_hero['h_score']);
             echo ($i++)?'、':'';
-            echo "{$ban_hero['h_name']}";
+            echo "{$ban_hero['h_name']}{$ban_hero['h_score']}分 ({$ban_hero['h_num']}次)";
         }
     }
     echo "<br><br>";
