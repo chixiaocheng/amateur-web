@@ -107,8 +107,6 @@ if ($res->num_rows) {
 
 /**
  * 显示数据
- * @var  $data_key
- * @var  $data_value
  */
 foreach ($data as $data_key => $data_value) {
     $data_value['p_score']=round($data_value['p_score'], 1);
