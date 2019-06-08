@@ -50,10 +50,10 @@ if (isset($_GET['act']) and $_GET['act'] == 'add') {
             $min_score = $mark;
             $db->query("UPDATE moba_hero_analyzer_hero SET min_score=$mark WHERE id=$hero");
         }
-        $new_score = ($num == 2) ? $max_score + 1.5 : ($total_score - $max_score - $min_score) / ($num - 2);
+        $new_score = ($num == 2) ? $max_score: ($total_score - $max_score - $min_score) / ($num - 2);
         $db->query("UPDATE moba_hero_analyzer_hero SET score=$new_score WHERE id=$hero");
     } else {
-        $mark_score = $mark + 3;
+        $mark_score = $mark;
         $db->query("UPDATE moba_hero_analyzer_hero SET score=$mark_score WHERE id=$hero");
     }
 
@@ -78,14 +78,17 @@ if ($res->num_rows) {
     while ($row = $res->fetch_assoc()) {
         $data[$i]['p_name'] = $row['name'];
         $data[$i]['p_score'] = $row['score'];
-        $res_hero_adv = $db->query("SELECT id,name,score,max_score,min_score FROM moba_hero_analyzer_hero WHERE position={$row['id']} AND score>=0.95*{$row['score']} ORDER BY score DESC");
+        $res_hero_adv = $db->query("SELECT id,name,score,max_score,min_score FROM moba_hero_analyzer_hero WHERE position={$row['id']} ORDER BY score DESC LIMIT 1");
         if ($res_hero_adv->num_rows) {
             $j = 1;
             while ($row_hero_adv = $res_hero_adv->fetch_assoc()) {
+                $res_hero_adv_num = $db->query("SELECT id FROM moba_hero_analyzer_record WHERE hero={$row_hero_adv['id']}");
+                if ($res_hero_adv_num->num_rows < 3) {
+                    continue; //本条作废
+                }
+                $data[$i]['hero_adv'][$j]['h_num'] = $res_hero_adv_num->num_rows;
                 $data[$i]['hero_adv'][$j]['h_name'] = $row_hero_adv['name'];
                 $data[$i]['hero_adv'][$j]['h_score'] = $row_hero_adv['score'];
-                $res_hero_adv_num = $db->query("SELECT id FROM moba_hero_analyzer_record WHERE hero={$row_hero_adv['id']}");
-                $data[$i]['hero_adv'][$j]['h_num'] = $res_hero_adv_num->num_rows;
                 $j++;
             }
         }
@@ -93,10 +96,13 @@ if ($res->num_rows) {
         if ($res_hero_ban->num_rows) {
             $j = 1;
             while ($row_hero_ban = $res_hero_ban->fetch_assoc()) {
+                $res_hero_ban_num = $db->query("SELECT id FROM moba_hero_analyzer_record WHERE hero={$row_hero_ban['id']}");
+                if ($res_hero_ban_num->num_rows < 3) {
+                    continue; //本条作废
+                }
+                $data[$i]['hero_ban'][$j]['h_num'] = $res_hero_ban_num->num_rows;
                 $data[$i]['hero_ban'][$j]['h_name'] = $row_hero_ban['name'];
                 $data[$i]['hero_ban'][$j]['h_score'] = $row_hero_ban['score'];
-                $res_hero_ban_num = $db->query("SELECT id FROM moba_hero_analyzer_record WHERE hero={$row_hero_ban['id']}");
-                $data[$i]['hero_ban'][$j]['h_num'] = $res_hero_ban_num->num_rows;
                 $j++;
             }
         }
@@ -108,23 +114,26 @@ if ($res->num_rows) {
 /* 显示 */
 foreach ($data as $data_key => $data_value) {
     $data_value['p_score'] = round($data_value['p_score'], 1);
-    echo "<u>{$data_key}【{$data_value['p_name']}】{$data_value['p_score']}分</u><br><b>推荐：";
+    echo "<u>{$data_key}【{$data_value['p_name']}】{$data_value['p_score']}分</u><br><b>";
     if (isset($data_value['hero_adv'])) {
         $i = 0;
         foreach ($data_value['hero_adv'] as $adv_hero) {
             $adv_hero['h_score'] = round($adv_hero['h_score']);
-            echo ($i++) ? '、' : '';
+            echo ($i++) ? '、' : '推荐：';
             echo "{$adv_hero['h_name']}{$adv_hero['h_score']}分 ({$adv_hero['h_num']}次)";
         }
     }
-    echo "</b><br>禁用：";
+    echo "</b><br>";
     if (isset($data_value['hero_ban'])) {
         $i = 0;
         foreach ($data_value['hero_ban'] as $ban_hero) {
             $ban_hero['h_score'] = round($ban_hero['h_score']);
-            echo ($i++) ? '、' : '';
+            echo ($i++) ? '、' : '禁用：';
             echo "{$ban_hero['h_name']}{$ban_hero['h_score']}分 ({$ban_hero['h_num']}次)";
         }
     }
-    echo "<br><br>";
+    echo "<br>██████████████████████<br>";
 }
+
+//$a = file_get_contents("result.json");
+////echo $a;
