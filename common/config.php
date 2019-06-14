@@ -1,12 +1,13 @@
 <?php
 ## 基本配置文件 ##
 
-//TODO
-class A{
-    function __construct() {
-        echo "aaaa";
-    }
+spl_autoload_register("class_autoload"); //注册类加载函数
+function class_autoload($className){
+    require_once "common/$className.class.php";
+    echo "autoload";
 }
+$a=new test\Tests();
+//TODO
 class newClass
 {
     static function M($class_name, $unique = '') {
