@@ -1,14 +1,16 @@
 <?php
 ## 基本配置文件 ##
 
+/** 类加载 **/
 spl_autoload_register("newClass::autoload",); //注册类加载函数
-//TODO
 class newClass
 {
+    //自动加载类函数
     static function autoload($className) {
         require_once "$className.class.php";
     }
 
+    //单例加载
     static function only($className, $feature = '') { //避免构造函数重复执行等
         static $class_list = [];
         if (!array_key_exists($className . $feature, $class_list)) {
@@ -18,7 +20,9 @@ class newClass
     }
 }
 
-$a = newClass::only("Test");
+/** 初始化页面数据 **/
+$web = new Web();
+
 /** 数据库配置 **/
 require_once "db.php"; //数据库账号信息
 $db = new mysqli($db_host, $db_username, $db_password, $db_name);
