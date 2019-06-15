@@ -1,25 +1,24 @@
 <?php
 ## 基本配置文件 ##
 
-spl_autoload_register("class_autoload"); //注册类加载函数
-function class_autoload($className){
-    require_once "common/$className.class.php";
-    echo "autoload";
-}
-$a=new test\Tests();
+spl_autoload_register("newClass::autoload",); //注册类加载函数
 //TODO
 class newClass
 {
-    static function M($class_name, $unique = '') {
+    static function autoload($className) {
+        require_once "$className.class.php";
+    }
+
+    static function only($className, $feature = '') { //避免构造函数重复执行等
         static $class_list = [];
-        require_once "class/$class_name.php";
-        if (!$class_list[$class_name . $unique]) {
-            $class_list[$class_name . $unique] = new $class_name;
+        if (!array_key_exists($className . $feature, $class_list)) {
+            $class_list[$className . $feature] = new $className;
         }
-        return $class_list[$class_name.$unique];
+        return $class_list[$className . $feature];
     }
 }
 
+$a = newClass::only("Test");
 /** 数据库配置 **/
 require_once "db.php"; //数据库账号信息
 $db = new mysqli($db_host, $db_username, $db_password, $db_name);
