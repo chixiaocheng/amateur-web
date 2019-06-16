@@ -21,14 +21,10 @@ class newClass
 }
 
 /** 初始化页面数据 **/
-$web = new Web();
+error_reporting(1); //错误显示
+$db = new DB(); //数据库
+$web = new Web(); //页面
 
-/** 数据库配置 **/
-require_once "db.php"; //数据库账号信息
-$db = new mysqli($db_host, $db_username, $db_password, $db_name);
-if ($db->connect_error) {
-    die('数据库连接错误！');
-}
 
 
 /** 默认配置 **/

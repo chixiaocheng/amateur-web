@@ -4,7 +4,8 @@
 class Web
 {
     function __construct() {
-        $this->mod = isset($_GET['mod']) ? $_GET['mod'] : 'index';
+        $this->model = isset($_GET['m']) ? $_GET['m'] : 'index';
+        $this->tpl_type = (isset($_GET['tt'])) ? $_GET['tt'] : 'desktop';
     }
 
     static function getSelf() { //获取当前文件名（不带拓展名）
@@ -13,9 +14,8 @@ class Web
         return $self;
     }
 
-    static function getRawTpl() { //获取未编译模板
-        $tpl_type = (isset($_GET['tt'])) ? $_GET['tt'] : 'desktop';
-        $path = 'public/template/' . $tpl_type . '/' . Web::getSelf() . '.eg.tpl';
+    public function getRawTpl() { //获取未编译模板
+        $path = 'public/template/' . $this->tpl_type . '/' . Web::getSelf() . '.eg.tpl';
         return file_get_contents($path);
     }
 
@@ -45,5 +45,6 @@ class Web
     }
 
     public $data = [];
-    public $mod;
+    public $model;
+    public $tpl_type;
 }
