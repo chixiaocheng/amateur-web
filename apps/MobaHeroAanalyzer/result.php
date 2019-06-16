@@ -1,11 +1,10 @@
 <?php
 
 /** 数据库配置 **/
-require_once "../../common/db.php"; //数据库账号信息
-$db = new mysqli($db_host, $db_username, $db_password, $db_name);
+/*$db = new mysqli($db_host, $db_username, $db_password, $db_name);
 if ($db->connect_error) {
     die('数据库连接错误！');
-}
+}*/
 
 /** 新增数据 **/
 if (isset($_GET['act']) and $_GET['act'] == 'add') {

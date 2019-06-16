@@ -1,12 +1,4 @@
 <?php
-$tplc = '
-{
-    "text": "' . ((''.$this->data['test'].'') ? (''.$this->data['test'].'') : ('')) . '"
-    ';
-foreach ($this->data['array'] as $item) {
-        $tplc.='i'.$item.'';
-    };$tplc.='
-}
-';
+$tplc=json_encode($this->data);
 
 
