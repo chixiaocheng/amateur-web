@@ -11,6 +11,7 @@ class Web
     function __construct($module) {
         $this->model = isset($_GET['m']) ? $_GET['m'] : 'index';
         $this->module = $module;
+        //TODO 判断路径是否错误
         $this->tpl_type = (isset($_GET['tt'])) ? $_GET['tt'] : Defaults::$tpl_type;
     }
 
