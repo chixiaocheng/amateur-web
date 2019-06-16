@@ -3,31 +3,37 @@
 
 class Web
 {
-    static function getSelf() {
+    function __construct() {
+        $this->mod = isset($_GET['mod']) ? $_GET['mod'] : 'index';
+    }
+
+    static function getSelf() { //获取当前文件名（不带拓展名）
         $self = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1); //去头
-        $self = substr($self, 0, -4); //去头
+        $self = substr($self, 0, -4); //去尾
         return $self;
     }
 
-    static function getTpl() {
-        return (isset($_GET['tpl'])) ? $_GET['tpl'] : 'desktop';
+    static function getRawTpl() { //获取未编译模板
+        $tpl_type = (isset($_GET['tt'])) ? $_GET['tt'] : 'desktop';
+        $path = 'public/template/' . $tpl_type . '/' . Web::getSelf() . '.eg.tpl';
+        return file_get_contents($path);
     }
 
-    public function setData($newData) {
+    public function setData($newData) { //推送页面数据
         foreach ($newData as $f_key => $f_value) {
             $this->data[$f_key] = $f_value;
         }
     }
 
     public function setPage() {
-        $path = 'public/template/' . Web::getTpl() . '/' . Web::getSelf() . '.tpl';
-        $tpl = file_get_contents($path);
+        $tpl = Web::getTpl();
         function getData($value) {
             global $web;
             return $web->data[$value[1]];
         }
+
         function getDataIf($value) {
-            if ($value[1]=='true' or $value[1]=='1'){
+            if ($value[1] == 'true' or $value[1] == '1') {
                 return $value[2];
             }
             return null;
@@ -39,4 +45,5 @@ class Web
     }
 
     public $data = [];
+    public $mod;
 }
