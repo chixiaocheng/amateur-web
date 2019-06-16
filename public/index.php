@@ -2,14 +2,16 @@
 ## 公共程序入口 ##
 require_once 'common/config.php'; //运行时当前系统路径(根目录)/index.php
 
-if (isset($_GET['mod'])) {
-    $mod = $_GET['mod'];
-    require_once "public/$mod.php";
-} else {
+if ($web->model == 'index') { //首页MODEL
     $web->setData([
-        'test' => 'Hello world!'
+        'test' => 'Hello world!',
+        'array'=> [
+            'a'=>'a',
+            'b'=>'b'
+        ]
     ]);
-    echo $web->data['test'];
+} else { //其它MODEL
+    require_once "public/{$web->model}.php";
 }
 
 $web->setPage();

@@ -21,7 +21,7 @@ class newClass
 }
 
 /** 初始化页面数据 **/
-error_reporting(1); //错误显示
+//error_reporting(0); //是否显示错误
 $db = new DB(); //数据库
 $web = new Web(); //页面
 
