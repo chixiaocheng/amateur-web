@@ -33,15 +33,3 @@ function post_def($key, $default = null, $warn = null) {
         return $key;
     }
 }
-
-//TODO
-function template($type, $path) {
-    global $client;
-    $extension=($client == 'wechat') ? 'json' : 'htm';
-    if ($type == 'public') {
-        return require_once "E:/PhpstormProjects/amateur-web/public/template/$client/$path.$extension";
-    } elseif ($type == 'app') {
-        return "";
-    }
-    return null;
-}

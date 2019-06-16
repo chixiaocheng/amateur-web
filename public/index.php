@@ -1,6 +1,7 @@
 <?php
 ## 公共程序入口 ##
 require_once 'common/config.php'; //运行时当前系统路径(根目录)/index.php
+$web = new Web('public'); //实例化页面类
 
 if ($web->model == 'index') { //首页MODEL
     $web->setData([
@@ -13,5 +14,4 @@ if ($web->model == 'index') { //首页MODEL
 } else { //其它MODEL
     require_once "public/{$web->model}.php";
 }
-
 $web->setPage();

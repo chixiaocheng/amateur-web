@@ -3,9 +3,15 @@
 
 class Web
 {
-    function __construct() {
+    public $data = [];
+    public $model;
+    public $module;
+    public $tpl_type;
+
+    function __construct($module) {
         $this->model = isset($_GET['m']) ? $_GET['m'] : 'index';
-        $this->tpl_type = (isset($_GET['tt'])) ? $_GET['tt'] : 'desktop';
+        $this->module = $module;
+        $this->tpl_type = (isset($_GET['tt'])) ? $_GET['tt'] : Defaults::$tpl_type;
     }
 
     public function setData($newData) { //推送页面数据
@@ -15,17 +21,13 @@ class Web
     }
 
     public function setPage() {
-        $path = 'public/template/' . $this->tpl_type . '/' . $this->model . '.tplc'; //已编译模板路径
-        if (is_file($path)){
+        $path = $this->module . '/template/' . $this->tpl_type . '/' . $this->model . '.tplc'; //已编译模板路径
+        if (is_file($path)) {
             $tplc = null; //方便编辑器识别
             require_once $path;
             echo $tplc;
-        }else{
-            die('页面模板文件缺失！');
+        } else {
+            die("页面模板文件{$path}缺失！");
         }
     }
-
-    public $data = [];
-    public $model;
-    public $tpl_type;
 }

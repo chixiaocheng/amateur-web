@@ -22,32 +22,8 @@ class newClass
 
 /** 初始化页面数据 **/
 //error_reporting(0); //是否显示错误
-$db = new DB(); //数据库
-$web = new Web(); //页面
 
-
-
-/** 默认配置 **/
-require_once "default.php";
 
 
 /** 基本函数 **/
 require_once "function.php";
-
-
-/**
- ** 判断终端类型 (存在优先级) **
- * $client 终端类型
- */
-$client = $default_client; //默认终端
-if (isset($_GET['mobile'])) {
-    $client = 'mobile'; //移动版
-} else if (isset($_GET['desktop'])) {
-    $client = 'desktop'; //桌面版
-} else if (isset($_GET['wechat'])) {
-    $client = 'wechat'; //微信小程序版
-}
-
-
-/** 获取用户信息 **/
-require_once "ikey_check.php";
