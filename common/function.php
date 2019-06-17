@@ -1,6 +1,6 @@
 <?php
 ## 基本函数 ##
-
+//TODO 怎么处理这个文件？
 /**
  ** 获取GET值 **
  * @param string $key GET键名
