@@ -10,19 +10,16 @@ class newClass
         require_once "$className.class.php";
     }
 
-    //单例加载
-
     /**
-     * @param $className string
-     * @return object
+     * //单例加载
+     * @return DB|Web
      */
-    public static function only($className) {
+    public static function single($className) {
         static $class_list = [];
         if (!$class_list[$className]) {
-            $class_list[$className] = new $className();
+            $class_list[$className] = new $className;
         }
-        $_object = $class_list[$className];
-        return $_object;
+        return $class_list[$className];
     }
 }
 
@@ -31,5 +28,3 @@ class newClass
 
 /** 基本函数 **/
 require_once "function.php";
-$a = newClass::only('DB');
-echo $a->quer("");
