@@ -12,12 +12,22 @@ class newClass
 
     /**
      * //单例加载
+     * @param string $className
+     * @param array $param
      * @return DB|Web
      */
-    public static function single($className) {
+    public static function single($className, $param = []) {
         static $class_list = [];
-        if (!$class_list[$className]) {
-            $class_list[$className] = new $className;
+        if (!isset($class_list[$className])) {
+            $classParam = '';
+            if ($param != []) {
+                $i = 0;
+                foreach ($param as $item) {
+                    $classParam .= ($i++) ? ',' : '';
+                    $classParam .= "$item";
+                }
+            }
+            $class_list[$className] = new $className($classParam);
         }
         return $class_list[$className];
     }

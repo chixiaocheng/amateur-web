@@ -35,7 +35,7 @@ class Web
     }
 
     public function setError(){ //报错并终止运行
-        //TODO
+        //TODO 模板
         $error_tplc = 'public/template/' . $this->tpl_type . '/error.tplc'; //已编译模板路径
         $tplc = null; //避免编辑器报错
         require_once $error_tplc;
