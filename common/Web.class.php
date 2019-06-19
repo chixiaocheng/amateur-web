@@ -10,7 +10,7 @@ class Web
 
     function __construct($module) {
         $this->model = isset($_GET['m']) ? $_GET['m'] : 'index';
-        if (!is_file($module.'/'.$this->model.'.php')) {
+        if (!is_file($module . '/' . $this->model . '.php')) {
             die("访问的页面{$module}/{$this->model}不存在！");
         }
         $this->module = $module;
@@ -34,11 +34,20 @@ class Web
         }
     }
 
-    public function setError(){ //报错并终止运行
+    public function setError() { //报错并终止运行
         //TODO 模板
         $error_tplc = 'public/template/' . $this->tpl_type . '/error.tplc'; //已编译模板路径
         $tplc = null; //避免编辑器报错
         require_once $error_tplc;
         die($tplc);
+    }
+
+    public static function getGET($key, $default) {
+        //TODO 缺省验证
+        return (isset($_GET[$key])) ? $_GET[$key] : $default;
+    }
+
+    public static function getPOST($key, $default) {
+        return (isset($_POST[$key])) ? $_POST[$key] : $default;
     }
 }

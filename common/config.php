@@ -36,5 +36,3 @@ class newClass
 /** 初始化页面数据 **/
 //error_reporting(0); //是否显示错误
 
-/** 基本函数 **/
-require_once "function.php";
