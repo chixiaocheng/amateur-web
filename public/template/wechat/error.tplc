@@ -1,0 +1,9 @@
+<?php
+
+$tplc = '
+{
+    "Code": "' . ((''.$this->data['code'].'') ? (''.$this->data['code'].'') : ('')) . '",
+    "Msg": "' . ((''.$this->data['msg'].'') ? (''.$this->data['msg'].'') : ('')) . '"
+}
+';
+

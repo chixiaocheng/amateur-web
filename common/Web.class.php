@@ -9,6 +9,7 @@ class Web
     public $tpl_type;
 
     /**
+     * 调用已实例化的类
      * @return Web
      */
     static function this() {
@@ -41,20 +42,22 @@ class Web
         }
     }
 
-    public function setError() { //报错并终止运行
-        //TODO 模板
-        $error_tplc = 'public/template/' . $this->tpl_type . '/error.tplc'; //已编译模板路径
+    public function setError($code, $msg = null) { //报错并终止运行
+        $this->data['code'] = $code;
+        $this->data['msg'] = $msg;
+        $re_dir = ($this->module != 'public') ? '../' : '';
+        $error_tplc = $re_dir . 'public/template/' . $this->tpl_type . '/error.tplc'; //已编译模板路径
         $tplc = null; //避免编辑器报错
         require_once $error_tplc;
         die($tplc);
     }
 
-    public static function getGET($key, $default) {
-        //TODO 缺省验证
+    public static function get_GET($key, $default = null) {
+        //TODO 缺省报错机制
         return (isset($_GET[$key])) ? $_GET[$key] : $default;
     }
 
-    public static function getPOST($key, $default) {
+    public static function get_POST($key, $default = null) {
         return (isset($_POST[$key])) ? $_POST[$key] : $default;
     }
 }
