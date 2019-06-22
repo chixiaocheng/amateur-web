@@ -4,7 +4,7 @@
 class DB extends mysqli
 {
     public $table;
-    public $where;
+    public $mWhere;
     public $limit;
     public $order;
 
@@ -30,7 +30,7 @@ class DB extends mysqli
      * @return DB
      */
     public function where($condition) {
-        $this->where = $condition;
+        $this->mWhere = $condition;
         return $this;
     }
 
@@ -57,7 +57,7 @@ class DB extends mysqli
      * @return array|null 返回一行数据
      */
     public function select($column) {
-        $where = ($this->where) ? 'WHERE ' . $this->where : '';
+        $where = ($this->mWhere) ? 'WHERE ' . $this->mWhere : '';
         $order = ($this->order) ? 'ORDER ' . $this->order : '';
         $limit = ($this->limit) ? 'LIMIT ' . $this->limit : '';
         return $this->query("SELECT $column FROM {$this->table} $where $order $limit")->fetch_assoc();
@@ -68,14 +68,14 @@ class DB extends mysqli
      * @return int 返回影响行数
      */
     public function update($set) {
-        $where = ($this->where) ? 'WHERE ' . $this->where : '';
+        $where = ($this->mWhere) ? 'WHERE ' . $this->mWhere : '';
         $this->query("UPDATE {$this->table} SET $set $where");
         return $this->affected_rows;
     }
 
     /**
-     * @param $key
-     * @param $value
+     * @param string $key 键名
+     * @param string $value 键值
      * @return bool|int
      */
     public function insert($key, $value){

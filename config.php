@@ -13,7 +13,7 @@ class newClass
     /**
      * //单例加载
      * @param string $className 类名
-     * @param array $param
+     * @param array $param 要传入的参数
      * @return DB|Web
      */
     public static function single($className, $param = []) {
@@ -33,5 +33,4 @@ class newClass
     }
 }
 
-/** 初始化页面数据 **/
 //error_reporting(0); //是否显示错误

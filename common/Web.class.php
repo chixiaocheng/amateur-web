@@ -8,6 +8,13 @@ class Web
     public $module;
     public $tpl_type;
 
+    /**
+     * @return Web
+     */
+    static function this() {
+        return newClass::single('Web');
+    }
+
     function __construct($module) {
         $this->model = isset($_GET['m']) ? $_GET['m'] : 'index';
         if (!is_file($module . '/' . $this->model . '.php')) {
