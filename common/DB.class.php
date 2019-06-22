@@ -29,54 +29,48 @@ class DB extends mysqli
      * @param string $condition 索引条件
      * @return DB
      */
-    static function where($condition) {
-        $db = newClass::single('DB');
-        $db->where = $condition;
-        return $db;
+    public function where($condition) {
+        $this->where = $condition;
+        return $this;
     }
 
     /**
      * @param int $num 限制数量
      * @return DB
      */
-    static function limit($num) {
-        $db = newClass::single('DB');
-        $db->limit = $num;
-        return $db;
+    public function limit($num) {
+        $this->limit = $num;
+        return $this;
     }
 
     /**
      * @param string $sort 排列方式
      * @return DB
      */
-    static function order($sort) {
-        $db = newClass::single('DB');
-        $db->order = $sort;
-        return $db;
+    public function order($sort) {
+        $this->order = $sort;
+        return $this;
     }
-
 
     /**
      * @param string $column 需要的键
      * @return array|null 返回一行数据
      */
-    static function select($column) {
-        $db = newClass::single('DB');
-        $where = ($db->where) ? 'WHERE ' . $db->where : '';
-        $order = ($db->order) ? 'ORDER ' . $db->order : '';
-        $limit = ($db->limit) ? 'LIMIT ' . $db->limit : '';
-        return $db->query("SELECT $column FROM {$db->table} $where $order $limit")->fetch_assoc();
+    public function select($column) {
+        $where = ($this->where) ? 'WHERE ' . $this->where : '';
+        $order = ($this->order) ? 'ORDER ' . $this->order : '';
+        $limit = ($this->limit) ? 'LIMIT ' . $this->limit : '';
+        return $this->query("SELECT $column FROM {$this->table} $where $order $limit")->fetch_assoc();
     }
 
     /**
      * @param string $set 更新的内容
      * @return int 返回影响行数
      */
-    static function update($set) {
-        $db = newClass::single('DB');
-        $where = ($db->where) ? 'WHERE ' . $db->where : '';
-        $db->query("UPDATE {$db->table} SET $set $where");
-        return $db->affected_rows;
+    public function update($set) {
+        $where = ($this->where) ? 'WHERE ' . $this->where : '';
+        $this->query("UPDATE {$this->table} SET $set $where");
+        return $this->affected_rows;
     }
 
     /**
@@ -84,10 +78,9 @@ class DB extends mysqli
      * @param $value
      * @return bool|int
      */
-    static function insert($key, $value){
-        $db = newClass::single('DB');
-        if ($db->query("INSERT INTO {$db->table} ($key) VALUES ($value)")){
-            return $db->insert_id;
+    public function insert($key, $value){
+        if ($this->query("INSERT INTO {$this->table} ($key) VALUES ($value)")){
+            return $this->insert_id;
         }
         return false;
     }
@@ -96,9 +89,8 @@ class DB extends mysqli
      * @param $where
      * @return int
      */
-    static function delete($where){
-        $db = newClass::single('DB');
-        $db->query("DELETE FROM {$db->table} WHERE $where");
-        return $db->affected_rows;
+    public function delete($where){
+        $this->query("DELETE FROM {$this->table} WHERE $where");
+        return $this->affected_rows;
     }
 }
