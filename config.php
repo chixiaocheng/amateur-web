@@ -7,7 +7,7 @@ class newClass
 {
     //自动加载类函数
     static function autoload($className) {
-        require_once "$className.class.php";
+        require_once "common/$className.class.php";
     }
 
     /**

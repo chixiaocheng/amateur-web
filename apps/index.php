@@ -1,6 +1,6 @@
 <?php
 ## 应用程序入口 ##
-require_once '../common/config.php'; //运行时当前系统路径/apps/index.php
+require_once '../config.php'; //运行时当前系统路径/apps/index.php
 $module = (isset($_GET['app'])) ? $_GET['app'] : '';
 $web = new Web($module); //实例化页面类
 
