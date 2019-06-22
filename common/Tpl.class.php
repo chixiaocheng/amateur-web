@@ -1,10 +1,13 @@
 <?php
 
-
-class Tpl extends DB
+//TODO
+//增
+//删
+//改
+//查
+class Tpl
 {
     function __construct() {
-        parent::__construct();
     }
 
     private function getTypeNum($type) {

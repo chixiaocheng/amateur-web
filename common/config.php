@@ -12,7 +12,7 @@ class newClass
 
     /**
      * //单例加载
-     * @param string $className
+     * @param string $className 类名
      * @param array $param
      * @return DB|Web
      */
@@ -35,4 +35,3 @@ class newClass
 
 /** 初始化页面数据 **/
 //error_reporting(0); //是否显示错误
-
