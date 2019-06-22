@@ -78,18 +78,27 @@ class DB extends mysqli
      * @param string $value 键值
      * @return bool|int
      */
-    public function insert($key, $value){
-        if ($this->query("INSERT INTO {$this->table} ($key) VALUES ($value)")){
+    public function insert($key, $value) {
+        if ($this->query("INSERT INTO {$this->table} ($key) VALUES ($value)")) {
             return $this->insert_id;
         }
         return false;
     }
 
     /**
+     * @param $key
+     * @param $value
+     * @return bool|mysqli_result
+     */
+    public function replace($key, $value) {
+        return $this->query("REPLACE INTO {$this->table} ($key) VALUES ($value)");
+    }
+
+    /**
      * @param $where
      * @return int
      */
-    public function delete($where){
+    public function delete($where) {
         $this->query("DELETE FROM {$this->table} WHERE $where");
         return $this->affected_rows;
     }
