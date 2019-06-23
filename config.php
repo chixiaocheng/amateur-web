@@ -6,7 +6,10 @@ spl_autoload_register("newClass::autoload"); //注册类加载函数
 class newClass
 {
     //自动加载类函数
-    static function autoload($className) {
+    /**
+     * @param $className
+     */
+    public static function autoload($className) {
         require_once "common/$className.class.php";
     }
 
