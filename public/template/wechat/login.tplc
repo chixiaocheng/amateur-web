@@ -1,0 +1,4 @@
+<?php
+$tplc=json_encode($this->data);
+
+
