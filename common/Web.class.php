@@ -7,6 +7,7 @@ class Web
     public $model;
     public $module;
     public $tpl_type;
+    public $act;
 
     /**
      * 调用已实例化的类
@@ -32,6 +33,9 @@ class Web
     }
 
     public function setPage() { //建立页面并显示
+        if (isset($_GET['act'])){
+            $this->act[$_GET['act']]();
+        }
         $tplc_file = $this->module . '/template/' . $this->tpl_type . '/' . $this->model . '.tplc'; //已编译模板路径
         if (is_file($tplc_file)) {
             $tplc = null; //避免编辑器报错

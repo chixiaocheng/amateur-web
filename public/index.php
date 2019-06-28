@@ -1,7 +1,7 @@
 <?php
 ## 公共程序入口 ##
 require_once 'config.php'; //运行时当前系统路径(根目录)/index.php
-$web = new Web('public'); //实例化页面类
+$web = newClass::single('Web',['public']); //实例化页面类
 
 if ($web->model == 'index') { //首页MODEL
     $web->setData([
