@@ -33,7 +33,7 @@ class Web
     }
 
     public function setPage() { //建立页面并显示
-        if (isset($_GET['act'])){
+        if (isset($_GET['act'])) {
             $this->act[$_GET['act']]();
         }
         $tplc_file = $this->module . '/template/' . $this->tpl_type . '/' . $this->model . '.tplc'; //已编译模板路径
@@ -63,5 +63,9 @@ class Web
 
     public static function get_POST($key, $default = null) {
         return (isset($_POST[$key])) ? $_POST[$key] : $default;
+    }
+
+    public static function get_COOKIE($key, $default = null) {
+        return (isset($_COOKIE[$key])) ? $_COOKIE[$key] : $default;
     }
 }

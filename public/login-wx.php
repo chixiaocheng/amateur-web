@@ -3,12 +3,12 @@ $web->data = $_GET;
 // TODO
 // 1.未注册 -> 手动授权 -> 返回ikey和资料
 $web->act['register'] = function () {
-    global $web;
+//    global $web;
 
 };
 // 2.已注册未登录 -> 自动授权 -> 返回ikey和资料
 $web->act['au'] = function () {
-    global $web;
+//    global $web;
 };
 // 3.已注册已登录ikey正确 -> 资料
 // 4.已注册已登录ikey错误 -> 自动授权 -> 返回ikey和资料  = 3->2->3
@@ -16,6 +16,7 @@ $web->act['au'] = function () {
 
 /*
  * 小程序验证是否有ikey
+ * 
  * 小程序获取手动授权
  * 服务端获得首次授权并新建账号
  * 小程序端接收账号信息

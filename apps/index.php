@@ -3,17 +3,6 @@
 require_once '../config.php'; //运行时当前系统路径/apps/index.php
 $module = (isset($_GET['id'])) ? $_GET['id'] : '';
 $web = new Web($module); //实例化页面类
-$web->setError('SSS');
 
-if ($web->model == 'index') { //首页MODEL
-    $web->setData([
-        'test' => 'Hello world!',
-        'array' => [
-            'a' => 'a',
-            'b' => 'b'
-        ]
-    ]);
-} else { //其它MODEL
-    require_once "{$web->module}/{$web->model}.php";
-}
+require_once "{$web->module}/{$web->model}.php";
 $web->setPage();
