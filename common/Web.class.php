@@ -33,8 +33,11 @@ class Web
     }
 
     public function setPage() { //建立页面并显示
-        if (isset($_GET['act'])) {
+        // TODO array 改 class
+        if (isset($_GET['act']) and isset($this->act[$_GET['act']])) {
             $this->act[$_GET['act']]();
+        }else{
+            $this->act['default']();
         }
         $tplc_file = $this->module . '/template/' . $this->tpl_type . '/' . $this->model . '.tplc'; //已编译模板路径
         if (is_file($tplc_file)) {

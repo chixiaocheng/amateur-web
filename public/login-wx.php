@@ -1,14 +1,23 @@
 <?php
-$web->data = $_GET;
 // TODO
-// 1.未注册 -> 手动授权 -> 返回ikey和资料
+// 0.
 $web->act['register'] = function () {
-//    global $web;
+    global $web;
+    $ikey=Web::get_GET('ikey');
+    $web->data['sss']=123;
+};
+// 1.未注册 -> 手动授权 -> 返回ikey和资料
 
+
+$web->act['register'] = function () {
+    global $web;
+    $ikey=Web::get_GET('ikey');
+    $web->data['sss']=123;
 };
 // 2.已注册未登录 -> 自动授权 -> 返回ikey和资料
-$web->act['au'] = function () {
-//    global $web;
+$web->act['default'] = function () {
+    global $web;
+    $web->data['sss']=123;
 };
 // 3.已注册已登录ikey正确 -> 资料
 // 4.已注册已登录ikey错误 -> 自动授权 -> 返回ikey和资料  = 3->2->3
